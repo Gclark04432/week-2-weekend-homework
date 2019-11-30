@@ -12,6 +12,12 @@ class TestRoom < Minitest::Test
     @room1 = Room.new(1, 100, 10)
     @room2 = Room.new(2, 30, 5)
     @room3 = Room.new(3, 10, 1)
+
+    @song1 = Song.new("American Boy", "Estelle", 2008)
+    @song2 = Song.new("Rap Devil", "Machine Gun Kelly", 2018)
+    @song3 = Song.new("The Kill", "30 Seconds to Mars", 2005)
+    @song4 = Song.new("Here With Me", "Dido", 1999)
+
   end
 
   def test_can_read_room_number
@@ -24,6 +30,20 @@ class TestRoom < Minitest::Test
 
   def test_can_read_room_capacity_as_int
     assert_equal(1, @room3.capacity())
+  end
+
+  def test_room_list_starts_empty_by_default
+    assert_equal(0, @room2.song_list_length())
+  end
+
+  def test_can_add_songs_to_empty_song_list
+    @room3.add_song_to_room(@song1)
+    assert_equal(1, @room3.song_list_length())
+  end
+
+  def test_can_start_a_room_with_songs_on_song_list
+    room = Room.new(4, 5, 50, [@song1, @song3, @song4])
+    assert_equal(3, room.song_list_length())
   end
 
 end
