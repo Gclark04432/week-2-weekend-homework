@@ -18,6 +18,11 @@ class TestRoom < Minitest::Test
     @song3 = Song.new("The Kill", "30 Seconds to Mars", 2005)
     @song4 = Song.new("Here With Me", "Dido", 1999)
 
+    @guest1 = Guest.new("Gary Clark", 33, 100)
+    @guest2 = Guest.new("Graeme Herd", 34, 50)
+    @guest3 = Guest.new("Darren Clark", 17, 100)
+    @guest4 = Guest.new("Stuart Martin", 18, 0)
+
   end
 
   def test_can_read_room_number
@@ -45,5 +50,15 @@ class TestRoom < Minitest::Test
     room = Room.new(4, 5, 50, [@song1, @song3, @song4])
     assert_equal(3, room.song_list_length())
   end
+
+  def test_guests_in_room_starts_empty_by_default
+    assert_equal(0, @room1.number_of_guests_in_room())
+  end
+
+  def test_can_add_guests_to_empty_guests_in_room
+    @room3.add_guest_to_room(@guest1)
+    assert_equal(1, @room3.number_of_guests_in_room())
+  end
+
 
 end
