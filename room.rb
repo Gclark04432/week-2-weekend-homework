@@ -22,8 +22,12 @@ attr_reader :room_number, :till, :capacity
     return @guests_in_room.length()
   end
 
-  def add_guest_to_room(guest)
+  def check_guest_in(guest)
     @guests_in_room.push(guest)
+  end
+
+  def check_guest_out(guest)
+    @guests_in_room.delete(guest)
   end
 
 end
