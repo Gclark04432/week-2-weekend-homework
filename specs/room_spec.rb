@@ -9,9 +9,9 @@ require_relative ('../room')
 class TestRoom < Minitest::Test
 
   def setup
-    @room1 = Room.new(1, 100, 10)
-    @room2 = Room.new(2, 30, 5)
-    @room3 = Room.new(3, 10, 1)
+    @room1 = Room.new(1, 10, 100, 10)
+    @room2 = Room.new(2, 15, 30, 5)
+    @room3 = Room.new(3, 20, 10, 1)
 
     @song1 = Song.new("American Boy", "Estelle", 2008)
     @song2 = Song.new("Rap Devil", "Machine Gun Kelly", 2018)
@@ -47,7 +47,7 @@ class TestRoom < Minitest::Test
   end
 
   def test_can_start_a_room_with_songs_on_song_list
-    room = Room.new(4, 5, 50, [@song1, @song3, @song4])
+    room = Room.new(4, 10, 5, 50, [@song1, @song3, @song4])
     assert_equal(3, room.song_list_length())
   end
 
@@ -75,6 +75,11 @@ class TestRoom < Minitest::Test
     @room3.check_guest_in(@guest2)
 
     assert_equal(1, @room3.number_of_guests_in_room())
+  end
+
+  def test_will_refuse_entry_if_guests_does_not_have_enough_money
+    @room1.check_guest_in(@guest4)
+    assert_equal(0, @room3.number_of_guests_in_room())
   end
 
 

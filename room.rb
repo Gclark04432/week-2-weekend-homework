@@ -1,11 +1,12 @@
 class Room
 
-  attr_reader :room_number, :till, :capacity
+  attr_reader :room_number, :till, :capacity, :entrance_fee
 
-  def initialize(room_number, till, capacity, song_list = [])
+  def initialize(room_number, entrance_fee, till, capacity, song_list = [])
     @room_number = room_number
     @till = till
     @capacity = capacity
+    @entrance_fee = entrance_fee
     @song_list = song_list
     @guests_in_room = []
   end
@@ -23,7 +24,7 @@ class Room
   end
 
   def check_guest_in(guest)
-    if check_room_space_for_guest == true
+    if check_room_space_for_guest && guest_can_afford_entry(guest)
       @guests_in_room.push(guest)
     end
   end
@@ -34,6 +35,10 @@ class Room
 
   def check_room_space_for_guest
     number_of_guests_in_room() < capacity
+  end
+
+  def guest_can_afford_entry(guest)
+    guest.wallet() >= @entrance_fee
   end
 
 end
