@@ -1,6 +1,6 @@
 class Room
 
-attr_reader :room_number, :till, :capacity
+  attr_reader :room_number, :till, :capacity
 
   def initialize(room_number, till, capacity, song_list = [])
     @room_number = room_number
@@ -23,11 +23,17 @@ attr_reader :room_number, :till, :capacity
   end
 
   def check_guest_in(guest)
-    @guests_in_room.push(guest)
+    if check_room_space_for_guest == true
+      @guests_in_room.push(guest)
+    end
   end
 
   def check_guest_out(guest)
     @guests_in_room.delete(guest)
+  end
+
+  def check_room_space_for_guest
+    number_of_guests_in_room() < capacity
   end
 
 end

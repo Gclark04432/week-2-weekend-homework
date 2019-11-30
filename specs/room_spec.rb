@@ -61,13 +61,20 @@ class TestRoom < Minitest::Test
   end
 
   def test_can_check_guests_out_of_room
+    @room2.check_guest_in(@guest1)
+    @room2.check_guest_in(@guest2)
+    @room2.check_guest_in(@guest3)
+
+    @room2.check_guest_out(@guest2)
+
+    assert_equal(2, @room2.number_of_guests_in_room())
+  end
+
+  def test_can_not_add_extra_guests_beyond_capacity_of_room
     @room3.check_guest_in(@guest1)
     @room3.check_guest_in(@guest2)
-    @room3.check_guest_in(@guest3)
 
-    @room3.check_guest_out(@guest2)
-
-    assert_equal(2, @room3.number_of_guests_in_room())
+    assert_equal(1, @room3.number_of_guests_in_room())
   end
 
 
